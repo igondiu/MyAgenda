@@ -19,22 +19,36 @@ public class Login_Acti extends AppCompatActivity {
     private int Compteur = 5;
     private Button RegisterBT;
     private SharedPreferences sp;
+    private boolean AccountLogOut = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         Login = findViewById(R.id.LoginAREA);
         Connect_BT = findViewById(R.id.CONNECT_button);
         RegisterBT = findViewById(R.id.Register_BT);
         Password = findViewById(R.id.PasswordAREA);
         Nombre_Essais = findViewById(R.id.attempts_nb);
-        sp = getSharedPreferences("Login", MODE_PRIVATE);
+        sp = getSharedPreferences("login", MODE_PRIVATE);
+
+        AccountLogOut = getIntent().getBooleanExtra("logged",true);
+
+        if(!AccountLogOut){
+            sp.edit().putBoolean("logged", false).commit();
+        }
+
 
         if(sp.getBoolean("logged",false)){
             Intent intent = new Intent(Login_Acti.this, MainActivity.class);
             startActivity(intent);
+            boolean test = sp.getBoolean("logged",false);
+            Log.i("Sort de Log", "Bien appelé le REGISTER");
+            if(test){
+                Log.i("La valeur de SP  : ", "TRUE");
+            }
         }
         Nombre_Essais.setText(getString(R.string.Attempts_Remaining)+String.valueOf(Compteur));
 
@@ -46,7 +60,8 @@ public class Login_Acti extends AppCompatActivity {
                 {
                     Intent intent = new Intent(Login_Acti.this, MainActivity.class);
                     startActivity(intent);
-                    sp.edit().putBoolean("logged", true);
+                    sp.edit().putBoolean("logged", true).commit();
+                    Log.i("Bien rentré", String.valueOf(sp.getBoolean("logged",false)));
                 }else{
                     Compteur--;
                     Nombre_Essais.setText(getString(R.string.Attempts_Remaining)+String.valueOf(Compteur));
@@ -64,7 +79,7 @@ public class Login_Acti extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentReg = new Intent(Login_Acti.this, Register.class );
                 startActivity(intentReg);
-                Log.i("Sort de Log", "Bien appelé le REGISTER");
+
             }
         });
 

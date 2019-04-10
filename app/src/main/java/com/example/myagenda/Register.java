@@ -33,8 +33,6 @@ public class Register extends AppCompatActivity {
         RegButton_OBJ = findViewById(R.id.Reg_Button_UI);
         wasError = 0;
 
-        Log.i("Rentré","Bien rentré dans l'app register");
-
 
 
         varNom.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -105,6 +103,23 @@ public class Register extends AppCompatActivity {
         RegButton_OBJ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(varNom.getText().toString().isEmpty()){
+                    TempMessageString = "Le Nom ne peut pas être vide";
+                    showAlert(v,varNom);
+                }
+                if(varPrenom.getText().toString().isEmpty()){
+                    TempMessageString = "Le Prénom ne peut pas être vide";
+                    showAlert(v,varPrenom);
+                }
+                if(varEmail.getText().toString().isEmpty()){
+                    TempMessageString = "L'email ne peut pas être vide";
+                    showAlert(v,varEmail);
+                }
+                if(varPhone.getText().toString().isEmpty()){
+                    TempMessageString = "Le numéro ne peut pas être vide";
+                    showAlert(v,varPhone);
+                }
 
             }
         });
