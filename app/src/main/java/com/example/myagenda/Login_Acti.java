@@ -9,6 +9,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Login_Acti extends AppCompatActivity {
 
@@ -19,7 +30,10 @@ public class Login_Acti extends AppCompatActivity {
     private int Compteur = 5;
     private Button RegisterBT;
     private SharedPreferences sp;
-    private boolean AccountLogOut = true;
+    private static final String LoginURL = "http://android.ega.tf/gr4/admin/login_register/login.php";
+    boolean RequestReturn = false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +48,8 @@ public class Login_Acti extends AppCompatActivity {
         Nombre_Essais = findViewById(R.id.attempts_nb);
         sp = getSharedPreferences("login", MODE_PRIVATE);
 
-        AccountLogOut = getIntent().getBooleanExtra("logged",true);
 
-        if(!AccountLogOut){
+        if(!(getIntent().getBooleanExtra("logged",true))){
             sp.edit().putBoolean("logged", false).commit();
         }
 
@@ -44,11 +57,6 @@ public class Login_Acti extends AppCompatActivity {
         if(sp.getBoolean("logged",false)){
             Intent intent = new Intent(Login_Acti.this, MainActivity.class);
             startActivity(intent);
-            boolean test = sp.getBoolean("logged",false);
-            Log.i("Sort de Log", "Bien appelé le REGISTER");
-            if(test){
-                Log.i("La valeur de SP  : ", "TRUE");
-            }
         }
         Nombre_Essais.setText(getString(R.string.Attempts_Remaining)+String.valueOf(Compteur));
 
@@ -56,12 +64,11 @@ public class Login_Acti extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(CredentialsValidation(Login.getText().toString(), Password.getText().toString()))
+                if(CredentialsValidation(Login.getText().toString().trim(), Password.getText().toString().trim()))
                 {
                     Intent intent = new Intent(Login_Acti.this, MainActivity.class);
                     startActivity(intent);
                     sp.edit().putBoolean("logged", true).commit();
-                    Log.i("Bien rentré", String.valueOf(sp.getBoolean("logged",false)));
                 }else{
                     Compteur--;
                     Nombre_Essais.setText(getString(R.string.Attempts_Remaining)+String.valueOf(Compteur));
@@ -87,9 +94,41 @@ public class Login_Acti extends AppCompatActivity {
 
     }
 
-    public boolean CredentialsValidation(String LoginVR, String PwdVR)
+    public boolean CredentialsValidation(final String LoginVR, final String PwdVR)
     {
+        Log.i("Login Transmis : ", LoginVR);
+        Log.i("MDP Transmis : ", PwdVR);
+        StringRequest Request = new StringRequest(StringRequest.Method.POST, LoginURL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("Retour MYSQL ", "Un retour est reçu");
+                if(response.contains("success")){
+                    Log.i("IF de ONreSPONSE", response);
+                    RequestReturn = true;
+                }else{
+                    Toast.makeText(getApplicationContext(),"Invalid Username or Password", Toast.LENGTH_LONG).show();
+                    Log.i("ELSE de ONreSPONSE", response);
+                }
 
-        return true;
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("EROOOOOOORRRR Volley", error.toString());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params =  new HashMap<>();
+                params.put("loginuser","true");
+                params.put("username", LoginVR);
+                params.put("userpassword", PwdVR);
+                Log.i("Rentré dans le Mapping ", "Bien rentré dans le mapping");
+                return params;
+            }
+        };
+        Volley.newRequestQueue(this).add(Request);
+
+        return RequestReturn;
     }
 }
