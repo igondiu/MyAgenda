@@ -64,12 +64,8 @@ public class Login_Acti extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(CredentialsValidation(Login.getText().toString().trim(), Password.getText().toString().trim()))
+                if(!CredentialsValidation(Login.getText().toString().trim(), Password.getText().toString().trim()))
                 {
-                    Intent intent = new Intent(Login_Acti.this, MainActivity.class);
-                    startActivity(intent);
-                    sp.edit().putBoolean("logged", true).commit();
-                }else{
                     Compteur--;
                     Nombre_Essais.setText(getString(R.string.Attempts_Remaining)+String.valueOf(Compteur));
                     if(Compteur == 0)
@@ -103,11 +99,16 @@ public class Login_Acti extends AppCompatActivity {
             public void onResponse(String response) {
                 Log.i("Retour MYSQL ", "Un retour est reçu");
                 if(response.contains("success")){
-                    Log.i("IF de ONreSPONSE", response);
+                    Log.i("IF de ONreSPONSE", response);  //36SMHCP6ICMX
                     RequestReturn = true;
+                    Toast.makeText(getApplicationContext(),"Welcome Back !", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Login_Acti.this, MainActivity.class);
+                    startActivity(intent);
+                    sp.edit().putBoolean("logged", true).commit();
                 }else{
                     Toast.makeText(getApplicationContext(),"Invalid Username or Password", Toast.LENGTH_LONG).show();
                     Log.i("ELSE de ONreSPONSE", response);
+                    RequestReturn =  false;
                 }
 
             }
@@ -123,7 +124,6 @@ public class Login_Acti extends AppCompatActivity {
                 params.put("loginuser","true");
                 params.put("username", LoginVR);
                 params.put("userpassword", PwdVR);
-                Log.i("Rentré dans le Mapping ", "Bien rentré dans le mapping");
                 return params;
             }
         };
