@@ -98,13 +98,14 @@ public class Login_Acti extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.i("Retour MYSQL ", "Un retour est reçu");
-                if(response.contains("success")){
-                    Log.i("IF de ONreSPONSE", response);  //36SMHCP6ICMX
+                if(!response.contains("error")){
+                    Log.i("IF de ONreSPONSE", response);
                     RequestReturn = true;
-                    Toast.makeText(getApplicationContext(),"Welcome Back !", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Welcome Back "+response+" !", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Login_Acti.this, MainActivity.class);
                     startActivity(intent);
                     sp.edit().putBoolean("logged", true).commit();
+                    sp.edit().putString("username",response).commit();
                 }else{
                     Toast.makeText(getApplicationContext(),"Invalid Username or Password", Toast.LENGTH_LONG).show();
                     Log.i("ELSE de ONreSPONSE", response);

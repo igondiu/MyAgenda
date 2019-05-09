@@ -11,12 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.Serializable;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class Account_Fragment extends Fragment {
 
     private Button LogOutBT ;
+    private TextView TextUser;
 
 
     @Override
@@ -25,7 +29,8 @@ public class Account_Fragment extends Fragment {
         LaVue = inflater.inflate(R.layout.fragment_account, container, false);
 
         LogOutBT = LaVue.findViewById(R.id.Log_out);
-
+        TextUser = LaVue.findViewById(R.id.userText);
+        TextUser.setText("Hey ");
         LogOutBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
