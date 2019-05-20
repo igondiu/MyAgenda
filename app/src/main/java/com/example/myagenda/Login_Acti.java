@@ -1,5 +1,6 @@
 package com.example.myagenda;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +18,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.myagenda.databaseClasses.AppDataBase;
+import com.example.myagenda.databaseClasses.ConnectionJson;
+import com.example.myagenda.databaseClasses.User;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class Login_Acti extends AppCompatActivity {
 
@@ -31,7 +37,9 @@ public class Login_Acti extends AppCompatActivity {
     private Button RegisterBT;
     private SharedPreferences sp;
     private static final String LoginURL = "http://android.ega.tf/gr4/admin/login_register/login.php";
+    private static final String URLInfo = "http://android.ega.tf/gr4/product/";
     boolean RequestReturn = false;
+    public static AppDataBase appDataBase;
 
 
 
@@ -39,6 +47,7 @@ public class Login_Acti extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        appDataBase = Room.databaseBuilder(this, AppDataBase.class, "userinfo").allowMainThreadQueries().build();
 
 
         Login = findViewById(R.id.LoginAREA);
@@ -49,6 +58,7 @@ public class Login_Acti extends AppCompatActivity {
         sp = getSharedPreferences("login", MODE_PRIVATE);
 
 
+        // Log Out button clicked
         if(!(getIntent().getBooleanExtra("logged",true))){
             sp.edit().putBoolean("logged", false).commit();
         }
@@ -101,11 +111,22 @@ public class Login_Acti extends AppCompatActivity {
                 if(!response.contains("error")){
                     Log.i("IF de ONreSPONSE", response);
                     RequestReturn = true;
-                    Toast.makeText(getApplicationContext(),"Welcome Back "+response+" !", Toast.LENGTH_LONG).show();
+
                     Intent intent = new Intent(Login_Acti.this, MainActivity.class);
                     startActivity(intent);
                     sp.edit().putBoolean("logged", true).commit();
-                    sp.edit().putString("username",response).commit();
+                    try {
+                        List<User> user = new ConnectionJson(response).execute(URLInfo).get();
+                        Log.i("Info from JSON : ", user.get(0).getEmail());
+                        appDataBase.appDataBaseObject().addUser(user.get(0));
+                        Toast.makeText(getApplicationContext(),"Welcome Back "+user.get(0).getPrenom()+" !", Toast.LENGTH_LONG).show();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+
                 }else{
                     Toast.makeText(getApplicationContext(),"Invalid Username or Password", Toast.LENGTH_LONG).show();
                     Log.i("ELSE de ONreSPONSE", response);
