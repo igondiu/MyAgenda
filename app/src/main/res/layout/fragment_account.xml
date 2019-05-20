@@ -5,9 +5,11 @@
     android:background="@android:color/holo_green_dark">
 
     <TextView
-        android:layout_width="138dp"
+        android:id="@+id/userText"
+        android:layout_width="250dp"
         android:layout_height="60dp"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="Account"
         android:textColor="@android:color/black"
@@ -15,11 +17,22 @@
 
     <Button
         android:id="@+id/Log_out"
-        android:layout_width="129dp"
-        android:layout_height="60dp"
-
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="550dp"
 
         android:text="Log Out" />
+
+    <Button
+        android:id="@+id/Synch"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="450dp"
+        android:text="Sync Data" />
+
+
 
 
 </RelativeLayout>
