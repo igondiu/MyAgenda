@@ -1,5 +1,6 @@
 package com.example.myagenda;
 
+import android.arch.persistence.room.Room;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -9,14 +10,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.myagenda.databaseClasses.Agenda_Class;
+import com.example.myagenda.databaseClasses.AppDataBase;
 
+public class MainActivity extends AppCompatActivity {
+    public static AppDataBase appDataBase;
+    public static Agenda_Class task;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         setTitle("My Agenda");
+        appDataBase = Room.databaseBuilder(this, AppDataBase.class, "Agenda").allowMainThreadQueries().build();
+        task = new Agenda_Class();
 
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
