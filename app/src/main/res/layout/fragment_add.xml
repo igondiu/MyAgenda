@@ -1,16 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/holo_red_dark">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <EditText
+        android:id="@+id/Titre"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="0dp"
+        android:background="@android:color/darker_gray"
+        android:ems="10"
+        android:hint="Titre"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/Description"
+        android:layout_width="match_parent"
+        android:layout_height="98dp"
+        android:layout_below="@+id/Titre"
+        android:layout_marginTop="29dp"
+        android:background="@android:color/darker_gray"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/Place"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_below="@+id/Description"
+        android:layout_marginTop="41dp"
+        android:background="@android:color/darker_gray"
+        android:ems="12"
+        android:hint="Lieu"
+        android:inputType="textPostalAddress" />
+
+    <EditText
+        android:id="@+id/Debut"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_below="@+id/Place"
+        android:layout_marginTop="40dp"
+        android:background="@android:color/darker_gray"
+        android:ems="12"
+        android:hint="Debut"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/Fin"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_below="@+id/Debut"
+        android:layout_marginTop="39dp"
+        android:background="@android:color/darker_gray"
+        android:ems="12"
+        android:hint="Fin"
+        android:inputType="date" />
+
+    <Button
+        android:id="@+id/Reccurence"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Add"
-        android:textSize="30sp"
-        android:textColor="@android:color/black"
-        android:layout_centerInParent="true"/>
+        android:layout_below="@+id/Fin"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="0dp"
+        android:text="Reccurence" />
+
+    <Button
+        android:id="@+id/Save"
+        android:layout_width="226dp"
+        android:layout_height="64dp"
+        android:layout_below="@+id/Reccurence"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="91dp"
+        android:text="Sauvegarder" />
+
 
 </RelativeLayout>
