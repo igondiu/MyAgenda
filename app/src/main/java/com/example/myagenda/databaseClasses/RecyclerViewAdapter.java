@@ -1,5 +1,6 @@
 package com.example.myagenda.databaseClasses;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myagenda.R;
 
@@ -17,6 +20,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     Context mContext;
     List<Agenda_Class> mData;
+    Dialog myDialog;
 
     public RecyclerViewAdapter(Context mContext, List<Agenda_Class> mData) {
         this.mContext = mContext;
@@ -27,8 +31,42 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v;
+
         v= LayoutInflater.from(mContext).inflate(R.layout.one_event, viewGroup, false);
-        MyViewHolder vHolder = new MyViewHolder(v);
+        final MyViewHolder vHolder = new MyViewHolder(v);
+
+        // Dialog ini
+
+        myDialog = new Dialog(mContext);
+        myDialog.setContentView(R.layout.dialog_event);
+
+        vHolder.one_event.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView dialogTitre_tv = myDialog.findViewById(R.id.dialTitre);
+                TextView dialogDesci_tv = myDialog.findViewById(R.id.dialDescri);
+                TextView dialogLieu_tv = myDialog.findViewById(R.id.dialLieu);
+                TextView dialogDebut = myDialog.findViewById(R.id.dialDateDebut);
+                TextView dialogFin = myDialog.findViewById(R.id.dialDateFin);
+                TextView dialogRecurence = myDialog.findViewById(R.id.dialReccurence);
+                ImageView dialogImage = myDialog.findViewById(R.id.dialImage);
+                dialogDebut.setText(mData.get(vHolder.getAdapterPosition()).getDate_debut());
+                dialogDesci_tv.setText(mData.get(vHolder.getAdapterPosition()).getDescription());
+                dialogFin.setText(mData.get(vHolder.getAdapterPosition()).getDate_fin());
+                switch (mData.get(vHolder.getAdapterPosition()).getImportance()){
+                    case 1 : dialogImage.setImageResource(R.drawable.first);
+                    case 2 : dialogImage.setImageResource(R.drawable.second);
+                    default: dialogImage.setImageResource(R.drawable.third);
+                }
+                dialogLieu_tv.setText(mData.get(vHolder.getAdapterPosition()).getLieu());
+                dialogTitre_tv.setText(mData.get(vHolder.getAdapterPosition()).getTitre());
+                //TO DO : Reccurence to the table
+                //dialogRecurence.setText(mData.get(vHolder.getAdapterPosition()).getRecurrence());
+                Toast.makeText(mContext, "Test Click" + String.valueOf(vHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                myDialog.show();
+            }
+        });
+
         return vHolder;
     }
 
@@ -54,11 +92,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private TextView tvTitre;
         private TextView tvLieu;
         private ImageView imgImportance;
+        private LinearLayout one_event;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            one_event = itemView.findViewById(R.id.one_event_Card);
             tvTitre = itemView.findViewById(R.id.rcTitre);
             tvLieu = itemView.findViewById(R.id.rcLieu);
             imgImportance = itemView.findViewById(R.id.rcImage);
