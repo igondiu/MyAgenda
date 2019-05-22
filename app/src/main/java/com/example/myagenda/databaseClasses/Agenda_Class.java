@@ -32,10 +32,21 @@ public class Agenda_Class {
     @ColumnInfo(name = "lieu")
     private String lieu;
 
+    @ColumnInfo(name = "importance")
+    private int importance;
+
     //Getters and Setters :
 
     public int getId_user() {
         return id_user;
+    }
+
+    public int getImportance(){
+        return importance;
+    }
+
+    public void setImportance(int importance){
+        this.importance = importance;
     }
 
     public void setId_user(int id_user) {
