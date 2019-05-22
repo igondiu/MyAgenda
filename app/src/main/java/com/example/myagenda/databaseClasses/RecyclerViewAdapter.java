@@ -23,13 +23,11 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
-
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     Context mContext;
     List<Agenda_Class> mData;
     Dialog myDialog;
-
 
     public RecyclerViewAdapter(Context mContext, List<Agenda_Class> mData) {
         this.mContext = mContext;
@@ -38,9 +36,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull final ViewGroup viewGroup, int i) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v;
-
 
         v= LayoutInflater.from(mContext).inflate(R.layout.one_event, viewGroup, false);
         final MyViewHolder vHolder = new MyViewHolder(v);
