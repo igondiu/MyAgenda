@@ -12,16 +12,24 @@ import android.view.MenuItem;
 import com.example.myagenda.databaseClasses.Agenda_Class;
 import com.example.myagenda.databaseClasses.AppDataBase;
 
+import java.lang.annotation.Target;
+
 public class MainActivity extends AppCompatActivity {
     public static AppDataBase appDataBase;
     public static Agenda_Class task;
     public static BottomNavigationView bottomNav;
+    public static FragmentManager fm;
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fm = getSupportFragmentManager();
 
         setTitle("My Agenda");
         appDataBase = Room.databaseBuilder(this, AppDataBase.class, "Agenda").allowMainThreadQueries().build();

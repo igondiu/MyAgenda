@@ -54,8 +54,6 @@ public class Add_Fragment extends Fragment {
         btRecurrence = LaVue.findViewById(R.id.Reccurence);
         btSave = LaVue.findViewById(R.id.Save);
         radioGroup=LaVue.findViewById(R.id.GroupRadio);
-
-
         return LaVue;
     }
 
@@ -63,9 +61,10 @@ public class Add_Fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         String jsonAgenda = getActivity().getIntent().getStringExtra("myEvent");
+
         if(jsonAgenda != null && !jsonAgenda.isEmpty()) {
             isEditMod = true;
-            Agenda_Class myAgenda = new Agenda_Class();
+            Agenda_Class myAgenda;
             try {
                 myAgenda = new Agenda_Class(new JSONObject(jsonAgenda));
                 chDebut.setText(myAgenda.getDate_debut());
@@ -73,9 +72,13 @@ public class Add_Fragment extends Fragment {
                 chFin.setText(myAgenda.getDate_fin());
                 chLieu.setText(myAgenda.getLieu());
                 chTitre.setText(myAgenda.getTitre());
+                getActivity().getIntent().removeExtra("myEvent");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+        else{
+            clearForm((ViewGroup) LaVue);
         }
 
         btRecurrence.setOnClickListener(new View.OnClickListener() {
@@ -153,4 +156,5 @@ public class Add_Fragment extends Fragment {
                 clearForm((ViewGroup)view);
         }
     }
+
 }
