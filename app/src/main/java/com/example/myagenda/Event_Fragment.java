@@ -40,4 +40,7 @@ public class Event_Fragment extends Fragment {
         tasks = MainActivity.appDataBase.appDataBaseObject().readTasks();
 
     }
+
+
+
 }
