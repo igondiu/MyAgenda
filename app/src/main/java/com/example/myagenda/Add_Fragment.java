@@ -15,6 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.example.myagenda.databaseClasses.Agenda_Class;
+import com.google.gson.Gson;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,6 +38,7 @@ public class Add_Fragment extends Fragment {
     private Button btSave;
     private Button btRecurrence;
     private View  LaVue;
+    private boolean isEditMod = false;
 
 
 
@@ -42,7 +47,6 @@ public class Add_Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         LaVue = inflater.inflate(R.layout.fragment_add, container, false);
-
         chTitre = LaVue.findViewById(R.id.Titre);
         chDescription = LaVue.findViewById(R.id.Description);
         chDebut = LaVue.findViewById(R.id.Debut);
@@ -52,15 +56,27 @@ public class Add_Fragment extends Fragment {
         btSave = LaVue.findViewById(R.id.Save);
 
 
-
-
-
         return LaVue;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        String jsonAgenda = getActivity().getIntent().getStringExtra("myEvent");
+        if(jsonAgenda != null && !jsonAgenda.isEmpty()) {
+            isEditMod = true;
+            Agenda_Class myAgenda = new Agenda_Class();
+            try {
+                myAgenda = new Agenda_Class(new JSONObject(jsonAgenda));
+                chDebut.setText(myAgenda.getDate_debut());
+                chDescription.setText(myAgenda.getDescription());
+                chFin.setText(myAgenda.getDate_fin());
+                chLieu.setText(myAgenda.getLieu());
+                chTitre.setText(myAgenda.getTitre());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
         btRecurrence.setOnClickListener(new View.OnClickListener() {
             @Override

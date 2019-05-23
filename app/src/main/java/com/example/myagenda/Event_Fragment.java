@@ -25,20 +25,18 @@ public class Event_Fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         v= inflater.inflate(R.layout.fragment_event, container, false);
-         recyclerView = v.findViewById(R.id.RecyclerViewEvenet);
+        v = inflater.inflate(R.layout.fragment_event, container, false);
+        recyclerView = v.findViewById(R.id.RecyclerViewEvenet);
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), tasks);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(recyclerViewAdapter);
-         return v;
+        return v;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         tasks = MainActivity.appDataBase.appDataBaseObject().readTasks();
-
     }
 
 

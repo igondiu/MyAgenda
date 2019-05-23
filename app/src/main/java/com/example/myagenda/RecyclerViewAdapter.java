@@ -1,10 +1,13 @@
 package com.example.myagenda.databaseClasses;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -14,17 +17,17 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.example.myagenda.Add_Fragment;
 
+import com.example.myagenda.Agenda_Fragment;
 import com.example.myagenda.R;
+import com.google.gson.Gson;
 
 import java.util.List;
-
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     Context mContext;
     List<Agenda_Class> mData;
     Dialog myDialog;
-
 
     public RecyclerViewAdapter(Context mContext, List<Agenda_Class> mData) {
         this.mContext = mContext;
@@ -35,7 +38,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v;
-
 
         v= LayoutInflater.from(mContext).inflate(R.layout.one_event, viewGroup, false);
         final MyViewHolder vHolder = new MyViewHolder(v);
@@ -71,7 +73,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 dialModify.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Gson gson = new Gson();
+                        Intent intent = ((Activity) mContext).getIntent();
+                        intent.putExtra("myEvent", gson.toJson(mData.get(vHolder.getAdapterPosition())));
+                        ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Add_Fragment()).commit();
+                        myDialog.dismiss();
                     }
                 });
                 //TO DO : Reccurence to the table
