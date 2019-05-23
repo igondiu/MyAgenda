@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,6 +15,8 @@ import com.example.myagenda.databaseClasses.AppDataBase;
 public class MainActivity extends AppCompatActivity {
     public static AppDataBase appDataBase;
     public static Agenda_Class task;
+    public static BottomNavigationView bottomNav;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
         task = new Agenda_Class();
 
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+
+        bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         // Lorsque le main est appelé en met le fragment Agenda par défaut
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Agenda_Fragment()).commit();
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                                 selectedFragment = new Agenda_Fragment();
                                 break;
                     }
+
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
                     return true;
                 }

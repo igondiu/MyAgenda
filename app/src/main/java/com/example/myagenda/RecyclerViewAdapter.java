@@ -1,4 +1,4 @@
-package com.example.myagenda.databaseClasses;
+package com.example.myagenda;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -8,17 +8,13 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.example.myagenda.Add_Fragment;
-
-import com.example.myagenda.Agenda_Fragment;
-import com.example.myagenda.R;
+import com.example.myagenda.databaseClasses.Agenda_Class;
 import com.google.gson.Gson;
 
 import java.util.List;

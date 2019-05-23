@@ -11,9 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myagenda.databaseClasses.Agenda_Class;
-import com.example.myagenda.databaseClasses.RecyclerViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Event_Fragment extends Fragment {
