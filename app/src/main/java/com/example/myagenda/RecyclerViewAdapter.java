@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,10 +59,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 dialogDebut.setText(mData.get(vHolder.getAdapterPosition()).getDate_debut());
                 dialogDesci_tv.setText(mData.get(vHolder.getAdapterPosition()).getDescription());
                 dialogFin.setText(mData.get(vHolder.getAdapterPosition()).getDate_fin());
+                Log.i("L'importance Recy : ", "is"+mData.get(vHolder.getAdapterPosition()).getImportance());
                 switch (mData.get(vHolder.getAdapterPosition()).getImportance()){
-                    case 1 : dialogImage.setImageResource(R.drawable.first);
-                    case 2 : dialogImage.setImageResource(R.drawable.second);
-                    default: dialogImage.setImageResource(R.drawable.third);
+                    case 1 :
+                        dialogImage.setImageResource(R.drawable.first);
+                        break;
+                    case 2 :
+                        dialogImage.setImageResource(R.drawable.second);
+                        break;
+                    default:
+                        dialogImage.setImageResource(R.drawable.third);
+                        break;
                 }
                 dialogLieu_tv.setText(mData.get(vHolder.getAdapterPosition()).getLieu());
                 dialogTitre_tv.setText(mData.get(vHolder.getAdapterPosition()).getTitre());
@@ -91,9 +99,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         myViewHolder.tvTitre.setText(mData.get(i).getTitre());
         myViewHolder.tvLieu.setText(mData.get(i).getLieu());
         switch (mData.get(i).getImportance()){
-            case 1 : myViewHolder.imgImportance.setImageResource(R.drawable.first);
-            case 2 : myViewHolder.imgImportance.setImageResource(R.drawable.second);
-            default: myViewHolder.imgImportance.setImageResource(R.drawable.third);
+            case 1 :
+                myViewHolder.imgImportance.setImageResource(R.drawable.first);
+                break;
+            case 2 :
+                myViewHolder.imgImportance.setImageResource(R.drawable.second);
+                break;
+            default:
+                myViewHolder.imgImportance.setImageResource(R.drawable.third);
+                break;
         }
     }
 

@@ -108,20 +108,23 @@
         <RadioButton
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/one"/>
+            android:id="@+id/one"
+            android:text="A"/>
 
         <RadioButton
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:id="@+id/two"
             android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"/>
+            android:layout_marginRight="25dp"
+            android:text="B"/>
 
         <RadioButton
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:id="@+id/three"
-            android:checked="true"/>
+            android:checked="true"
+            android:text="C"/>
 
     </RadioGroup>
 
