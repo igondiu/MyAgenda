@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="#232323"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Titre"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:id="@+id/dialTitre"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:id="@+id/dialDescri"
+            android:text="Description"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lieu"
+            android:id="@+id/dialLieu"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="9dp"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Debut"
+            android:id="@+id/dialDateDebut"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="9dp"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fin"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="9dp"
+            android:textSize="18sp"
+            android:id="@+id/dialDateFin"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recurrence"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="9dp"
+            android:textSize="18sp"
+            android:id="@+id/dialReccurence"/>
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Modifier"
+            android:layout_marginTop="10dp"
+            android:id="@+id/dialBTModify"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:src="@drawable/first"
+        android:id="@+id/dialImage"/>
+</RelativeLayout>

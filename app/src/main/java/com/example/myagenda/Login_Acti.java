@@ -105,6 +105,7 @@ public class Login_Acti extends AppCompatActivity {
         Log.i("Login Transmis : ", LoginVR);
         Log.i("MDP Transmis : ", PwdVR);
         StringRequest Request = new StringRequest(StringRequest.Method.POST, LoginURL, new Response.Listener<String>() {
+
             @Override
             public void onResponse(String response) {
                 Log.i("Retour MYSQL ", "Un retour est reçu");
@@ -149,8 +150,11 @@ public class Login_Acti extends AppCompatActivity {
                 return params;
             }
         };
+
+        Log.i("MDP Request : ", Request.toString());
         Volley.newRequestQueue(this).add(Request);
 
         return RequestReturn;
     }
+
 }

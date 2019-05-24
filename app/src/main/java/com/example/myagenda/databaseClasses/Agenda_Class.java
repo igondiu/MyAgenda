@@ -4,6 +4,7 @@ package com.example.myagenda.databaseClasses;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import org.json.JSONObject;
 
 @Entity(tableName = "agenda")
 public class Agenda_Class {
@@ -32,10 +33,37 @@ public class Agenda_Class {
     @ColumnInfo(name = "lieu")
     private String lieu;
 
+    @ColumnInfo(name = "importance")
+    private int importance;
+
     //Getters and Setters :
+
+    public Agenda_Class(){
+
+    }
+
+    public Agenda_Class(JSONObject jsonObject){
+        this.id_task = jsonObject.optInt("id_task");
+        this.id_user = jsonObject.optInt("id_user");
+        this.date_creation = jsonObject.optString("date_creation");
+        this.date_debut = jsonObject.optString("date_debut");
+        this.date_fin = jsonObject.optString("date_fin");
+        this.description = jsonObject.optString("description");
+        this.lieu = jsonObject.optString("lieu");
+        this.titre = jsonObject.optString("titre");
+        this.importance = jsonObject.optInt("importance");
+    }
 
     public int getId_user() {
         return id_user;
+    }
+
+    public int getImportance(){
+        return importance;
+    }
+
+    public void setImportance(int importance){
+        this.importance = importance;
     }
 
     public void setId_user(int id_user) {
