@@ -12,9 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.*;
+import com.example.myagenda.databaseClasses.Agenda_Class;
+import com.google.gson.Gson;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,7 +36,9 @@ public class Add_Fragment extends Fragment {
     private Button btSave;
     private Button btRecurrence;
     private View  LaVue;
-
+    private boolean isEditMod = false;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
 
 
     @Nullable
@@ -42,7 +46,6 @@ public class Add_Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         LaVue = inflater.inflate(R.layout.fragment_add, container, false);
-
         chTitre = LaVue.findViewById(R.id.Titre);
         chDescription = LaVue.findViewById(R.id.Description);
         chDebut = LaVue.findViewById(R.id.Debut);
@@ -50,17 +53,33 @@ public class Add_Fragment extends Fragment {
         chLieu = LaVue.findViewById(R.id.Place);
         btRecurrence = LaVue.findViewById(R.id.Reccurence);
         btSave = LaVue.findViewById(R.id.Save);
-
-
-
-
-
+        radioGroup=LaVue.findViewById(R.id.GroupRadio);
         return LaVue;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        String jsonAgenda = getActivity().getIntent().getStringExtra("myEvent");
+
+        if(jsonAgenda != null && !jsonAgenda.isEmpty()) {
+            isEditMod = true;
+            Agenda_Class myAgenda;
+            try {
+                myAgenda = new Agenda_Class(new JSONObject(jsonAgenda));
+                chDebut.setText(myAgenda.getDate_debut());
+                chDescription.setText(myAgenda.getDescription());
+                chFin.setText(myAgenda.getDate_fin());
+                chLieu.setText(myAgenda.getLieu());
+                chTitre.setText(myAgenda.getTitre());
+                getActivity().getIntent().removeExtra("myEvent");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            clearForm((ViewGroup) LaVue);
+        }
 
         btRecurrence.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +105,24 @@ public class Add_Fragment extends Fragment {
                     task.setLieu(chLieu.getText().toString());
                     task.setDescription(chDescription.getText().toString());
                     task.setTitre(chTitre.getText().toString());
+                    int selectedId = radioGroup.getCheckedRadioButtonId();
+                    String charSequence;
+                    radioButton = LaVue.findViewById(selectedId);
+                    charSequence = (String)radioButton.getText();
+
+                    Log.i("La char est :", "is"+charSequence+"T");
+                    switch (charSequence){
+                        case "A" :
+                            task.setImportance(1);
+                            break;
+                        case "B" :
+                            task.setImportance(2);
+                            break;
+                        default:
+                            task.setImportance(3);
+                            break;
+                    }
+                    Log.i("Setted importance :", "is"+task.getImportance());
                     appDataBase.appDataBaseObject().addTask(task);
                     Toast.makeText(getActivity(),"Bien enregistré ! ", Toast.LENGTH_LONG).show();
                     clearForm((ViewGroup )LaVue);
@@ -119,4 +156,5 @@ public class Add_Fragment extends Fragment {
                 clearForm((ViewGroup)view);
         }
     }
+
 }
