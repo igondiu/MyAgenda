@@ -81,6 +81,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         Gson gson = new Gson();
                         Intent intent = ((Activity) mContext).getIntent();
                         intent.putExtra("myEvent", gson.toJson(mData.get(vHolder.getAdapterPosition())));
+
                         ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Add_Fragment()).commit();
                         myDialog.dismiss();
                     }

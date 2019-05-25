@@ -39,7 +39,10 @@ public class Add_Fragment extends Fragment {
     private boolean isEditMod = false;
     private RadioGroup radioGroup;
     private RadioButton radioButton;
-
+    private RadioButton radioButtonOne;
+    private RadioButton radioButtonTwo;
+    private RadioButton radioButtonThree;
+    private int taskId;
 
     @Nullable
     @Override
@@ -54,6 +57,10 @@ public class Add_Fragment extends Fragment {
         btRecurrence = LaVue.findViewById(R.id.Reccurence);
         btSave = LaVue.findViewById(R.id.Save);
         radioGroup=LaVue.findViewById(R.id.GroupRadio);
+        radioButtonOne = LaVue.findViewById(R.id.one);
+        radioButtonTwo = LaVue.findViewById(R.id.two);
+        radioButtonThree = LaVue.findViewById(R.id.three);
+
         return LaVue;
     }
 
@@ -72,6 +79,18 @@ public class Add_Fragment extends Fragment {
                 chFin.setText(myAgenda.getDate_fin());
                 chLieu.setText(myAgenda.getLieu());
                 chTitre.setText(myAgenda.getTitre());
+                taskId= myAgenda.getId_task();
+                switch (myAgenda.getImportance()){
+                    case 1 :
+                        radioButtonOne.setChecked(true);
+                        break;
+                    case 2 :
+                        radioButtonTwo.setChecked(true);
+                        break;
+                    default :
+                        radioButtonThree.setChecked(true);
+                        break;
+                }
                 getActivity().getIntent().removeExtra("myEvent");
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -79,6 +98,7 @@ public class Add_Fragment extends Fragment {
         }
         else{
             clearForm((ViewGroup) LaVue);
+            isEditMod = false;
         }
 
         btRecurrence.setOnClickListener(new View.OnClickListener() {
@@ -95,36 +115,71 @@ public class Add_Fragment extends Fragment {
                 if(chDescription.getText().toString().isEmpty() || chTitre.getText().toString().isEmpty()){
                     showAlert(v);
                 }else {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-                    String currentDateandTime = sdf.format(new Date());
-                    Log.i("La date et l'heure : ", currentDateandTime);
-                    task.setDate_creation(currentDateandTime);
-                    task.setDate_debut(chDebut.getText().toString());
-                    task.setDate_fin(chFin.getText().toString());
-                    task.setId_user(Login_Acti.appDataBase.appDataBaseObject().readUser().get(0).getId());
-                    task.setLieu(chLieu.getText().toString());
-                    task.setDescription(chDescription.getText().toString());
-                    task.setTitre(chTitre.getText().toString());
-                    int selectedId = radioGroup.getCheckedRadioButtonId();
-                    String charSequence;
-                    radioButton = LaVue.findViewById(selectedId);
-                    charSequence = (String)radioButton.getText();
+                    if(isEditMod){
+                        Agenda_Class taskModify = new Agenda_Class();
+                        taskModify.setId_task(taskId);
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+                        String currentDateandTime = sdf.format(new Date());
+                        Log.i("La date et l'heure : ", currentDateandTime);
+                        taskModify.setDate_creation(currentDateandTime);
+                        taskModify.setDate_debut(chDebut.getText().toString());
+                        taskModify.setDate_fin(chFin.getText().toString());
+                        taskModify.setId_user(Login_Acti.appDataBase.appDataBaseObject().readUser().get(0).getId());
+                        taskModify.setLieu(chLieu.getText().toString());
+                        taskModify.setDescription(chDescription.getText().toString());
+                        taskModify.setTitre(chTitre.getText().toString());
+                        int selectedId = radioGroup.getCheckedRadioButtonId();
+                        String charSequence;
+                        radioButton = LaVue.findViewById(selectedId);
+                        charSequence = (String)radioButton.getText();
 
-                    Log.i("La char est :", "is"+charSequence+"T");
-                    switch (charSequence){
-                        case "A" :
-                            task.setImportance(1);
-                            break;
-                        case "B" :
-                            task.setImportance(2);
-                            break;
-                        default:
-                            task.setImportance(3);
-                            break;
+                        Log.i("La char est :", "is"+charSequence+"T");
+                        switch (charSequence){
+                            case "A" :
+                                taskModify.setImportance(1);
+                                break;
+                            case "B" :
+                                taskModify.setImportance(2);
+                                break;
+                            default:
+                                taskModify.setImportance(3);
+                                break;
+                        }
+                        Log.i("Setted importance :", "is"+taskModify.getImportance());
+                        appDataBase.appDataBaseObject().updateTask(taskModify);
                     }
-                    Log.i("Setted importance :", "is"+task.getImportance());
-                    appDataBase.appDataBaseObject().addTask(task);
-                    Toast.makeText(getActivity(),"Bien enregistré ! ", Toast.LENGTH_LONG).show();
+                    else {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+                        String currentDateandTime = sdf.format(new Date());
+                        Log.i("La date et l'heure : ", currentDateandTime);
+                        task.setDate_creation(currentDateandTime);
+                        task.setDate_debut(chDebut.getText().toString());
+                        task.setDate_fin(chFin.getText().toString());
+                        task.setId_user(Login_Acti.appDataBase.appDataBaseObject().readUser().get(0).getId());
+                        task.setLieu(chLieu.getText().toString());
+                        task.setDescription(chDescription.getText().toString());
+                        task.setTitre(chTitre.getText().toString());
+                        int selectedId = radioGroup.getCheckedRadioButtonId();
+                        String charSequence;
+                        radioButton = LaVue.findViewById(selectedId);
+                        charSequence = (String)radioButton.getText();
+
+                        Log.i("La char est :", "is"+charSequence+"T");
+                        switch (charSequence){
+                            case "A" :
+                                task.setImportance(1);
+                                break;
+                            case "B" :
+                                task.setImportance(2);
+                                break;
+                            default:
+                                task.setImportance(3);
+                                break;
+                        }
+                        Log.i("Setted importance :", "is"+task.getImportance());
+                        appDataBase.appDataBaseObject().addTask(task);
+                        Toast.makeText(getActivity(),"Bien enregistré ! ", Toast.LENGTH_LONG).show();
+                    }
                     clearForm((ViewGroup )LaVue);
                 }
             }
