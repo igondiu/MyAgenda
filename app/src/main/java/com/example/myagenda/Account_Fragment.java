@@ -50,7 +50,7 @@ public class Account_Fragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         list= Login_Acti.appDataBase.appDataBaseObject().readUser();
         if(list.size()!=0){
-            TextUser.setText("Hey "+list.get(0).getPrenom());
+            TextUser.setText(list.get(0).getPrenom()+" "+list.get(0).getNom());
         }else {
             LogOutBT.performClick();
         }
