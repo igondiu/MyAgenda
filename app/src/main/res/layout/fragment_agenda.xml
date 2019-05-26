@@ -5,29 +5,28 @@
     android:background="@android:color/holo_blue_dark">
 
     <CalendarView
-        android:id="@+id/calendarView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="110dp"
-        android:dateTextAppearance="@android:style/TextAppearance.Large"
+            android:id="@+id/calendarView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="160dp"
+            android:dateTextAppearance="@android:style/TextAppearance.Large"
+            android:weekDayTextAppearance="@android:style/TextAppearance.Large"
 
-        android:weekDayTextAppearance="@android:style/TextAppearance.Large"
-
-        />
-
+    />
 
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="40dp"
-        android:text="Agenda"
-        android:textColor="@android:color/black"
-        android:textSize="40sp"
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:text="Agenda"
+            android:textColor="@android:color/black"
+            android:textSize="40sp"
 
-        />
+    />
 
 </RelativeLayout>

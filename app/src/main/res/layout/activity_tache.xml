@@ -1,21 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Tache">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="YO"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="355dp" />
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#232323"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_marginBottom="20dp">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dateToShow"
+                    android:textSize="18sp"
+                    android:text="Date Choisie"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:textColor="@android:color/white"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+            android:text="Rien de prévu pour ce jour"
+                      android:textSize="18sp"
+                      android:textColor="@android:color/white"
+                      android:layout_marginTop="25dp"/>
 
 
 
-
-
-</android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

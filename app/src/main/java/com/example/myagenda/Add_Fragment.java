@@ -35,7 +35,7 @@ public class Add_Fragment extends Fragment {
     private EditText chLieu;
     private Button btSave;
     private Button btRecurrence;
-    private View  LaVue;
+    private View LaVue;
     private boolean isEditMod = false;
     private RadioGroup radioGroup;
     private RadioButton radioButton;

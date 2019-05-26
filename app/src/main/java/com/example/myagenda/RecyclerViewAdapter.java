@@ -88,7 +88,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 });
                 //TO DO : Reccurence to the table
                 //dialogRecurence.setText(mData.get(vHolder.getAdapterPosition()).getRecurrence());
-                Toast.makeText(mContext, "Test Click" + String.valueOf(vHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "Test Click" + String.valueOf(vHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
                 myDialog.show();
             }
         });
